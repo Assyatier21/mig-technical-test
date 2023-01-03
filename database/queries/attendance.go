@@ -9,5 +9,6 @@ const (
                             RETURNING id, user_id, activity, check_in, check_out`
 
 	GetHistoryAttendance = `SELECT * FROM mig_attendance 
-                                WHERE user_id = $1`
+                                WHERE user_id = $1 
+                                ORDER BY id LIMIT $2 OFFSET $3`
 )

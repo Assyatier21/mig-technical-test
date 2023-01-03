@@ -76,5 +76,50 @@ func (h *handler) CheckOutAttendance(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, res)
 }
 func (h *handler) GetHistoryAttendance(c echo.Context) (err error) {
-	return
+	var (
+		user_id int
+		limit   int
+		offset  int
+	)
+
+	user_id, err = strconv.Atoi(c.FormValue("user_id"))
+	if err != nil {
+		res := m.SetError(http.StatusBadRequest, "user_id must be an integer")
+		return c.JSON(http.StatusBadRequest, res)
+	}
+
+	if c.FormValue("limit") == "" {
+		limit = 100
+	} else {
+		limit, err = strconv.Atoi(c.FormValue("limit"))
+		if err != nil {
+			res := m.SetError(http.StatusBadRequest, "limit must be an integer")
+			return c.JSON(http.StatusBadRequest, res)
+		}
+	}
+
+	if c.FormValue("offset") == "" {
+		offset = 0
+	} else {
+		offset, err = strconv.Atoi(c.FormValue("offset"))
+		if err != nil {
+			res := m.SetError(http.StatusBadRequest, "offset must be an integer")
+			return c.JSON(http.StatusBadRequest, res)
+		}
+	}
+
+	datas, err := h.repository.GetHistoryAttendance(c, user_id, limit, offset)
+	if err != nil {
+		log.Println("[Delivery][GetHistoryAttendance] can't get history of attendance, err:", err.Error())
+		res := m.SetError(http.StatusInternalServerError, "failed to get attendances history")
+		return c.JSON(http.StatusInternalServerError, res)
+	}
+
+	var attendances []interface{}
+	for _, v := range datas {
+		attendances = append(attendances, v)
+	}
+
+	res := m.SetResponse(http.StatusOK, "success", attendances)
+	return c.JSON(http.StatusOK, res)
 }

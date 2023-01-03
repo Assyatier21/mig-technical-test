@@ -4,6 +4,7 @@ import (
 	"log"
 	database "mig-attendance/database/queries"
 	m "mig-attendance/models"
+	"mig-attendance/utils"
 
 	"github.com/labstack/echo/v4"
 )
@@ -36,6 +37,33 @@ func (r *repository) CheckOutAttendance(c echo.Context, check_out_date string, u
 
 	return attendance, nil
 }
-func (r *repository) GetHistoryAttendance(c echo.Context, user_id int) ([]m.Attendance, error) {
-	return []m.Attendance{}, nil
+func (r *repository) GetHistoryAttendance(c echo.Context, user_id int, limit int, offset int) ([]m.Attendance, error) {
+	var (
+		attendances []m.Attendance
+		err         error
+	)
+
+	rows, err := r.db.Query(database.GetHistoryAttendance, user_id, limit, offset)
+	if err != nil {
+		log.Println("[Repository][GetHistoryAttendance] can't get history of attendance, err:", err.Error())
+		return nil, err
+	}
+
+	for rows.Next() {
+		var temp = m.Attendance{}
+		if err := rows.Scan(&temp.Id, &temp.UserID, &temp.Activity, &temp.CheckIn, &temp.CheckOut); err != nil {
+			log.Println("[Repository][GetHistoryAttendance] failed to scan attendance, err :", err.Error())
+			return nil, err
+		}
+		temp.CheckIn = utils.FormattedTimeActivity(temp.CheckIn)
+		temp.CheckOut = utils.FormattedTimeActivity(temp.CheckOut)
+
+		attendances = append(attendances, temp)
+	}
+
+	if len(attendances) > 0 {
+		return attendances, nil
+	} else {
+		return []m.Attendance{}, nil
+	}
 }

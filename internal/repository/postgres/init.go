@@ -15,7 +15,7 @@ type Repository interface {
 	// Attendance Handler
 	CheckInAttendance(c echo.Context, check_in_date string, id int) (m.ResAttendance, error)
 	CheckOutAttendance(c echo.Context, check_out_date string, id int) (m.Attendance, error)
-	GetHistoryAttendance(c echo.Context, user_id int) ([]m.Attendance, error)
+	GetHistoryAttendance(c echo.Context, user_id int, limit int, offset int) ([]m.Attendance, error)
 
 	// Activity Handler
 	GetActivityByDate(c echo.Context, date_start string, date_end string, user_id int) ([]m.ResAttendanceByDate, error)
