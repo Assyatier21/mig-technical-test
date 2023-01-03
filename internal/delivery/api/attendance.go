@@ -14,7 +14,7 @@ func (h *handler) CheckInAttendance(c echo.Context) (err error) {
 	var (
 		user_id    int
 		check_in   string
-		attendance m.Attendance
+		attendance m.ResAttendance
 	)
 
 	user_id, err = strconv.Atoi(c.FormValue("user_id"))
@@ -30,6 +30,8 @@ func (h *handler) CheckInAttendance(c echo.Context) (err error) {
 		res := m.SetError(http.StatusInternalServerError, "failed to check-in")
 		return c.JSON(http.StatusInternalServerError, res)
 	}
+
+	attendance.CheckIn = utils.FormattedTime(attendance.CheckIn)
 
 	var data []interface{}
 	data = append(data, attendance)
@@ -51,9 +53,9 @@ func (h *handler) CheckOutAttendance(c echo.Context) (err error) {
 	}
 
 	check_out = utils.TimeNow
-	attendance, err = h.repository.CheckInAttendance(c, check_out, user_id)
+	attendance, err = h.repository.CheckOutAttendance(c, check_out, user_id)
 	if err != nil {
-		log.Println("[Delivery][CheckInAttendance] can't check-out, err:", err.Error())
+		log.Println("[Delivery][CheckOutAttendance] can't check-out, err:", err.Error())
 		res := m.SetError(http.StatusInternalServerError, "failed to check-out")
 		return c.JSON(http.StatusInternalServerError, res)
 	}

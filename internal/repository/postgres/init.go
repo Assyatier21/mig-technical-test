@@ -13,7 +13,7 @@ type Repository interface {
 	Logout(c echo.Context) error
 
 	// Attendance Handler
-	CheckInAttendance(c echo.Context, check_in_date string, id int) (m.Attendance, error)
+	CheckInAttendance(c echo.Context, check_in_date string, id int) (m.ResAttendance, error)
 	CheckOutAttendance(c echo.Context, check_out_date string, id int) (m.Attendance, error)
 	GetHistoryAttendance(c echo.Context, user_id int) ([]m.Attendance, error)
 

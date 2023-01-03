@@ -16,8 +16,8 @@ type Attendance struct {
 }
 
 type ResAttendance struct {
-	Id       int    `json:"id" form:"id"`
-	UserID   int    `json:"user_id" form:"user_id"`
-	CheckIn  string `json:"check_in" form:"check_in"`
-	CheckOut string `json:"check_out" form:"check_out"`
+	Id       int     `json:"id" form:"id"`
+	UserID   int     `json:"user_id" form:"user_id"`
+	CheckIn  string  `json:"check_in" form:"check_in"`
+	CheckOut *string `json:"check_out" form:"check_out"`
 }
