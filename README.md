@@ -40,7 +40,7 @@ const (
 )
 ```
 
-- Migrate Database From `mig-technical-test/tools/dump-mig-attendance-xxx.sq;`
+- Migrate Database From `mig-technical-test/tools/dump-mig-attendance-xxx.sql`
 
 ### Running
 
