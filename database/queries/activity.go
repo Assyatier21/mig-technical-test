@@ -1,7 +1,7 @@
 package database
 
 const (
-	GetActivityByDate = `SELECT activity, check_in FROM mig_attendance
+	GetActivityByDate = `SELECT id, user_id, activity, date(check_in) FROM mig_attendance
                             WHERE date(check_in) BETWEEN $1 AND $2 AND user_id = $3`
 
 	AddUpdateActivity = `UPDATE mig_attendance

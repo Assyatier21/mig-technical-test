@@ -18,6 +18,11 @@ var (
 	TimeNow           = time.Now().In(JakartaLoc).Format("2006-01-02T15:04:05")
 )
 
+func IsValidDate(s string) bool {
+	regex, _ := regexp.Compile(`^\d{4}-\d{2}-\d{2}$`)
+	return regex.MatchString(s)
+}
+
 func IsValidEmail(s string) bool {
 	regex, _ := regexp.Compile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
 	return regex.MatchString(s)

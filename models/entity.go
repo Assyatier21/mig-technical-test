@@ -21,3 +21,10 @@ type ResAttendance struct {
 	CheckIn  string  `json:"check_in" form:"check_in"`
 	CheckOut *string `json:"check_out" form:"check_out"`
 }
+
+type ResAttendanceByDate struct {
+	Id       int     `json:"id" form:"id"`
+	UserID   int     `json:"user_id" form:"user_id"`
+	Date     string  `json:"date" form:"date"`
+	Activity *string `json:"activity" form:"activity"`
+}

@@ -20,6 +20,7 @@ func GetRoutes(handler api.Handler) *echo.Echo {
 	g.Use(checkAuth)
 	g.POST("/check-in", handler.CheckInAttendance)
 	g.PATCH("/check-out", handler.CheckOutAttendance)
+	g.GET("/activity/date", handler.GetActivityByDate)
 
 	return e
 }

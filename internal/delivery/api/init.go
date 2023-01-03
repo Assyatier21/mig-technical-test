@@ -17,7 +17,6 @@ type Handler interface {
 	GetHistoryAttendance(c echo.Context) (err error)
 
 	// Activity Handler
-	GetActivity(c echo.Context) (err error)
 	GetActivityByDate(c echo.Context) (err error)
 	AddEditActivity(c echo.Context) (err error)
 	DeleteActivity(c echo.Context) (err error)
