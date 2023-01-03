@@ -50,6 +50,8 @@ go run cmd/main.go
 
 ### API Endpoints Documentation
 
+Details on the use of how this API works can be accessed via the following [link](https://documenter.getpostman.com/view/21912170/2s8Z72Tqqx).
+
 - `/login`: auth for login
 - `/logout`: logout user and clear session
 - `/api/v1/activity`: get activity details between date given
