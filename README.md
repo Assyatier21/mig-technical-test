@@ -1,6 +1,6 @@
-# Simple CMS Admin
+# Mitramas Attendance Application
 
-Welcome to the API documentation for the simple CMS Service. This API allows you to get an article and category as admin. This service using echo framework as well.
+Mitramas' need is to create an attendance platform that can handle Mitramas employee absences. In this platform, employees (users) can check in (absent) and check out (absent). Employees can also add the activities they do every day. In addition, employees can also view their absence history and activity history. This project contains the API needed by Mitramas to perform attendance.
 
 ## Getting Started
 
@@ -14,8 +14,8 @@ Welcome to the API documentation for the simple CMS Service. This API allows you
 - Clone the git repository:
 
 ```
-git clone https://github.com/Assyatier21/simple-cms-admin.git
-cd simple-cms-admin
+git clone https://github.com/Assyatier21/mig-technical-test.git
+cd mig-technical-test
 ```
 
 - Install Dependencies
@@ -40,6 +40,8 @@ const (
 )
 ```
 
+- Migrate Database From `mig-technical-test/tools/dump-mig-attendance-xxx.sq;`
+
 ### Running
 
 ```
@@ -48,25 +50,17 @@ go run cmd/main.go
 
 ### API Endpoints Documentation
 
-The API has the following endpoints:
+- `/login`: auth for login
+- `/logout`: logout user and clear session
+- `/api/v1/activity`: get activity details between date given
+- `/api/v1/activity`: (method: POST) add or edit activity in attendance
+- `/api/v1/activity/delete`: delete activity from attendance specific using attendance_id
+- `/api/v1/check-in`: set user checked-in on system
+- `/api/v1/check-out`: set user checked-out from system
+- `/api/v1/attendance/history`: get attendance history of user
 
-- `/v1/articles`: get list of articles
-- `/v1/article`: insert, update, delete and get details of article (method: POST, PATCH, DELETE, and GET)
-- `/v1/categories`: get list of categories
-- `/v1/category`: insert, update, delete and get details of category (method: POST, PATCH, DELETE, and GET)
-
-We can test the endpoint using the collection located in : `simple-cms-admin/tools`.
-
-### Testing
-
-```
-go test -v -coverprofile coverage.out ./...
-```
-
-## Install Local Sonarqube
-
-please follow this [tutorial](https://techblost.com/how-to-setup-sonarqube-locally-on-mac/) as well.
+We can test the endpoint using the collection (recommend to using Postman) located in : `mig-technical-test/tools`.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Assyatier21/simple-cms-admin/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Assyatier21/mig-technical-test/blob/master/LICENSE) file for details.
