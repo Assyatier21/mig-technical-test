@@ -6,15 +6,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (h *handler) GetActivity(ctx echo.Context) (err error) {
+func (h *handler) GetActivity(c echo.Context) (err error) {
 	return
 }
-func (h *handler) GetActivityByDate(ctx echo.Context) (err error) {
-	return ctx.JSON(http.StatusOK, map[string]string{"message": "Success Accessed!"})
+func (h *handler) GetActivityByDate(c echo.Context) (err error) {
+	return c.JSON(http.StatusOK, map[string]string{"message": "Success Accessed!"})
 }
-func (h *handler) AddEditActivity(ctx echo.Context) (err error) {
+func (h *handler) AddEditActivity(c echo.Context) (err error) {
 	return
 }
-func (h *handler) DeleteActivity(ctx echo.Context) (err error) {
+func (h *handler) DeleteActivity(c echo.Context) (err error) {
 	return
 }

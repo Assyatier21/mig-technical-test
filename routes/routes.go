@@ -2,6 +2,7 @@ package routes
 
 import (
 	"mig-attendance/internal/delivery/api"
+	m "mig-attendance/models"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -33,12 +34,14 @@ func checkAuth(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cookie, err := c.Cookie("auth")
 		if err != nil {
-			return echo.ErrUnauthorized
+			res := m.SetError(http.StatusUnauthorized, "Unauthorized")
+			return c.JSON(http.StatusUnauthorized, res)
 		}
 
 		value := cookie.Value
 		if value != "randomstring" {
-			return echo.ErrUnauthorized
+			res := m.SetError(http.StatusUnauthorized, "Unauthorized")
+			return c.JSON(http.StatusUnauthorized, res)
 		}
 		return next(c)
 	}

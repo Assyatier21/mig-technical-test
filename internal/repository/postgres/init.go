@@ -9,18 +9,18 @@ import (
 
 type Repository interface {
 	// Login Handler
-	Login(ctx echo.Context, username string, password string) (m.User, error)
-	Logout(ctx echo.Context) error
+	Login(c echo.Context, username string, password string) (m.User, error)
+	Logout(c echo.Context) error
 
 	// Attendance Handler
-	CheckInAttendance(ctx echo.Context, check_in_date string, id int) (m.Attendance, error)
-	CheckOutAttendance(ctx echo.Context, check_out_date string, id int) (m.Attendance, error)
-	GetHistoryAttendance(ctx echo.Context, user_id int) ([]m.Attendance, error)
+	CheckInAttendance(c echo.Context, check_in_date string, id int) (m.Attendance, error)
+	CheckOutAttendance(c echo.Context, check_out_date string, id int) (m.Attendance, error)
+	GetHistoryAttendance(c echo.Context, user_id int) ([]m.Attendance, error)
 
 	// Activity Handler
-	GetActivityByDate(ctx echo.Context, date string) (m.Attendance, error)
-	AddEditActivity(ctx echo.Context, id int) (m.Attendance, error)
-	DeleteActivity(ctx echo.Context, id int) error
+	GetActivityByDate(c echo.Context, date string) (m.Attendance, error)
+	AddEditActivity(c echo.Context, id int) (m.Attendance, error)
+	DeleteActivity(c echo.Context, id int) error
 }
 
 type repository struct {

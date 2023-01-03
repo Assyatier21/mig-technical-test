@@ -8,19 +8,19 @@ import (
 
 type Handler interface {
 	// Login Handler
-	Login(ctx echo.Context) (err error)
-	Logout(ctx echo.Context) (err error)
+	Login(c echo.Context) (err error)
+	Logout(c echo.Context) (err error)
 
 	// Attendance Handler
-	CheckInAttendance(ctx echo.Context) (err error)
-	CheckOutAttendance(ctx echo.Context) (err error)
-	GetHistoryAttendance(ctx echo.Context) (err error)
+	CheckInAttendance(c echo.Context) (err error)
+	CheckOutAttendance(c echo.Context) (err error)
+	GetHistoryAttendance(c echo.Context) (err error)
 
 	// Activity Handler
-	GetActivity(ctx echo.Context) (err error)
-	GetActivityByDate(ctx echo.Context) (err error)
-	AddEditActivity(ctx echo.Context) (err error)
-	DeleteActivity(ctx echo.Context) (err error)
+	GetActivity(c echo.Context) (err error)
+	GetActivityByDate(c echo.Context) (err error)
+	AddEditActivity(c echo.Context) (err error)
+	DeleteActivity(c echo.Context) (err error)
 }
 
 type handler struct {

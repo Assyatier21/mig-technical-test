@@ -13,7 +13,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (r *repository) Login(ctx echo.Context, email string, password string) (m.User, error) {
+func (r *repository) Login(c echo.Context, email string, password string) (m.User, error) {
 	var (
 		user m.User
 		err  error
@@ -31,36 +31,24 @@ func (r *repository) Login(ctx echo.Context, email string, password string) (m.U
 		return m.User{}, utils.WrongUsernamePass
 	}
 
-	setCookie(ctx, "auth", "randomstring", time.Now().Add(24*time.Hour))
+	utils.SetCookie(c, "auth", "randomstring", time.Now().Add(24*time.Hour))
 
 	return user, nil
 }
-func (r *repository) Logout(ctx echo.Context) error {
-	fmt.Println(ctx.Cookies())
-	cookie, err := ctx.Cookie("auth")
+func (r *repository) Logout(c echo.Context) error {
+	fmt.Println(c.Cookies())
+	cookie, err := c.Cookie("auth")
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "Cookie not found")
 	}
 
-	invalidateCookie(cookie)
+	utils.InvalidateCookie(cookie)
 
-	ctx.SetCookie(&http.Cookie{
+	c.SetCookie(&http.Cookie{
 		Name:    cookie.Name,
 		Value:   "",
 		Expires: time.Now().Add(-24 * time.Hour),
 	})
 
 	return nil
-}
-func setCookie(c echo.Context, name string, value string, expiration time.Time) {
-	cookie := &http.Cookie{
-		Name:    name,
-		Value:   value,
-		Expires: expiration,
-	}
-
-	c.SetCookie(cookie)
-}
-func invalidateCookie(cookie *http.Cookie) {
-	cookie.Expires = time.Now().Add(-24 * time.Hour)
 }

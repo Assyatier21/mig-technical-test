@@ -3,8 +3,11 @@ package utils
 import (
 	"errors"
 	"log"
+	"net/http"
 	"regexp"
 	"time"
+
+	"github.com/labstack/echo/v4"
 )
 
 var (
@@ -49,4 +52,17 @@ func FormattedTime(ts string) string {
 
 	formattedTime := t.Format("2006-01-02 15:04:05")
 	return formattedTime
+}
+
+func SetCookie(c echo.Context, name string, value string, expiration time.Time) {
+	cookie := &http.Cookie{
+		Name:    name,
+		Value:   value,
+		Expires: expiration,
+	}
+
+	c.SetCookie(cookie)
+}
+func InvalidateCookie(cookie *http.Cookie) {
+	cookie.Expires = time.Now().Add(-24 * time.Hour)
 }

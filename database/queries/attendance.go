@@ -1,8 +1,8 @@
 package database
 
 const (
-	CheckInAttendance = `UPDATE mig_attendance SET check_in = $1
-                            WHERE id = $2`
+	CheckInAttendance = `INSERT INTO mig_attendance (user_id, check_in) 
+                            VALUES ($1, $2) RETURNING id, user_id, check_in, check_out`
 
 	CheckOutAttendance = `UPDATE mig_attendance SET check_out = $1
                             WHERE id = $2`
