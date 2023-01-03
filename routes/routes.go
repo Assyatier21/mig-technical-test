@@ -18,14 +18,12 @@ func GetRoutes(handler api.Handler) *echo.Echo {
 
 	g := e.Group("/api/v1")
 	g.Use(checkAuth)
+	g.GET("/activity", handler.GetActivityByDate)
+	g.GET("/attendance/history", handler.GetHistoryAttendance)
 	g.POST("/check-in", handler.CheckInAttendance)
 	g.PATCH("/check-out", handler.CheckOutAttendance)
-
-	g.GET("/activity", handler.GetActivityByDate)
 	g.PATCH("/activity", handler.AddEditActivity)
 	g.PATCH("/activity/delete", handler.DeleteActivity)
-
-	g.GET("/attendance/history", handler.GetHistoryAttendance)
 
 	return e
 }
