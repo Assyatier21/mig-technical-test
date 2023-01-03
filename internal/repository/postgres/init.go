@@ -19,7 +19,7 @@ type Repository interface {
 
 	// Activity Handler
 	GetActivityByDate(c echo.Context, date_start string, date_end string, user_id int) ([]m.ResAttendanceByDate, error)
-	AddEditActivity(c echo.Context, id int) (m.Attendance, error)
+	AddEditActivity(c echo.Context, activity string, id int) (m.Attendance, error)
 	DeleteActivity(c echo.Context, id int) error
 }
 

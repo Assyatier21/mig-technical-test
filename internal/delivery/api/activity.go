@@ -54,8 +54,52 @@ func (h *handler) GetActivityByDate(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, res)
 }
 func (h *handler) AddEditActivity(c echo.Context) (err error) {
-	return
+	var (
+		activity string
+		id       int
+	)
+
+	activity = c.FormValue("activity")
+	id, err = strconv.Atoi(c.FormValue("id"))
+	if err != nil {
+		res := m.SetError(http.StatusBadRequest, "id must be an integer")
+		return c.JSON(http.StatusBadRequest, res)
+	}
+
+	attendance, err := h.repository.AddEditActivity(c, activity, id)
+	if err != nil {
+		log.Println("[Delivery][AddEditActivity] can't add or update activity, err:", err.Error())
+		res := m.SetError(http.StatusInternalServerError, "failed to add or update activity")
+		return c.JSON(http.StatusInternalServerError, res)
+	}
+
+	var data []interface{}
+	data = append(data, attendance)
+
+	res := m.SetResponse(http.StatusOK, "success", data)
+	return c.JSON(http.StatusOK, res)
 }
 func (h *handler) DeleteActivity(c echo.Context) (err error) {
-	return
+	var (
+		id int
+	)
+
+	id, err = strconv.Atoi(c.FormValue("id"))
+	if err != nil {
+		res := m.SetError(http.StatusBadRequest, "id must be an integer")
+		return c.JSON(http.StatusBadRequest, res)
+	}
+
+	err = h.repository.DeleteActivity(c, id)
+	if err != nil {
+		log.Println("[Delivery][AddEditActivity] can't add or update activity, err:", err.Error())
+		res := m.SetError(http.StatusInternalServerError, "failed to add or update activity")
+		return c.JSON(http.StatusInternalServerError, res)
+	}
+
+	return c.JSON(http.StatusOK,
+		map[string]string{
+			"status":  "success",
+			"message": "activity deleted",
+		})
 }
