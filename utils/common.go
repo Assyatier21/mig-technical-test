@@ -59,6 +59,17 @@ func FormattedTime(ts string) string {
 	return formattedTime
 }
 
+func FormattedTimeActivity(ts string) string {
+	t, err := time.Parse(time.RFC3339, ts)
+	if err != nil {
+		log.Println(err)
+		return ""
+	}
+
+	formattedTime := t.Format("2006-01-02")
+	return formattedTime
+}
+
 func SetCookie(c echo.Context, name string, value string, expiration time.Time) {
 	cookie := &http.Cookie{
 		Name:    name,
