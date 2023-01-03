@@ -14,8 +14,8 @@ var (
 	WrongUsernamePass = errors.New("wrong username or password")
 	ErrNotFound       = errors.New("data not found")
 	NoRowsAffected    = errors.New("no rows affected")
-	jakartaLoc, _     = time.LoadLocation("Asia/Jakarta")
-	TimeNow           = time.Now().In(jakartaLoc).Format("2006-01-02T15:04:05Z")
+	JakartaLoc, _     = time.LoadLocation("Asia/Jakarta")
+	TimeNow           = time.Now().In(JakartaLoc).Format("2006-01-02T15:04:05")
 )
 
 func IsValidEmail(s string) bool {

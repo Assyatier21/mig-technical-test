@@ -22,13 +22,13 @@ func (r *repository) CheckInAttendance(c echo.Context, check_in_date string, use
 
 	return attendance, nil
 }
-func (r *repository) CheckOutAttendance(c echo.Context, check_out_date string, id int) (m.Attendance, error) {
+func (r *repository) CheckOutAttendance(c echo.Context, check_out_date string, user_id int) (m.Attendance, error) {
 	var (
 		attendance m.Attendance
 		err        error
 	)
 
-	err = r.db.QueryRow(database.CheckOutAttendance, check_out_date, id).Scan(&attendance.Id, &attendance.UserID, &attendance.Activity, &attendance.CheckIn, &attendance.CheckOut)
+	err = r.db.QueryRow(database.CheckOutAttendance, check_out_date, user_id).Scan(&attendance.Id, &attendance.UserID, &attendance.Activity, &attendance.CheckIn, &attendance.CheckOut)
 	if err != nil {
 		log.Println("[Repository][CheckOutAttendance] can't check-out, err:", err.Error())
 		return m.Attendance{}, err
