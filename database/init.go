@@ -4,13 +4,13 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"mig-attendance/config"
+	"os"
 
 	_ "github.com/lib/pq"
 )
 
 func Init() *sql.DB {
-	psqlInfo := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable&search_path=%s", config.User, config.Password, config.Host, config.Database, config.Schema)
+	psqlInfo := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable&search_path=%s", os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), "mig-attendance", os.Getenv("DB_SCHEMA"))
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		log.Println(err)
